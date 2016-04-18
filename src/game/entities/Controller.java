@@ -45,7 +45,7 @@ public class Controller {
             if (entb.getY() > 900) {
                 entb.setY(-200);
                 entb.setX(rnd.nextInt(1400));
-                entb.setSpeed(rnd.nextInt(3) + 1);
+                entb.setSpeed(rnd.nextInt(4) + 2);
             }
 
             entb.tick();

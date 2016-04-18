@@ -99,10 +99,6 @@ public class Player extends GameObject implements EntityA{
                 }
             }
         }
-
-//        if (Physics.Collision(this, game.eb)) {
-//            game.stop();
-//        }
     }
 
     public void render(Graphics g) {

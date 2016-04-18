@@ -15,7 +15,7 @@ public class Enemy extends GameObject implements EntityB{
     private Rectangle boundingBox;
 
     Random rnd = new Random();
-    private int speed = rnd.nextInt(3) + 1;
+    private int speed = rnd.nextInt(4) + 2;
 
     public Enemy(int x, int y, Game game, Controller c) {
         super(x, y);

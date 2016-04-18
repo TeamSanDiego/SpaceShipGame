@@ -20,10 +20,6 @@ public class Bullet extends GameObject implements EntityA{
 
     public void tick() {
         y -= 15;
-
-//        if (Physics.Collision(this, game.eb)) {
-//            c.removeEntity(this);
-//        }
     }
 
     public void render(Graphics g) {
