@@ -142,6 +142,11 @@ public class Game implements Runnable {
         g.setColor(Color.GREEN);
         g.fillRect(5, 20, health, 30);
 
+        g.setColor(Color.black);
+        Font myFont = new Font("Arial", Font.BOLD, 30);
+        g.setFont(myFont);
+        g.drawString(Integer.toString(health / 3), health / 2 - 12, 47);
+
         // end drawing
 
         // kazvame na nashiq canvas da vizualizira informaciqta
