@@ -133,7 +133,7 @@ public class Game implements Runnable {
             this.monster.render(this.g);
             this.c.render(this.g);
         } else if (State == STATE.MENU) {
-
+            this.menu.
         }
 
         g.setColor(Color.WHITE);
