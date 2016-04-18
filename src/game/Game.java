@@ -23,6 +23,7 @@ public class Game implements Runnable {
     private String name;
     private int width;
     private int height;
+    private int counter = 0;
 
     private Thread thread;
     private boolean isRunning;
@@ -122,7 +123,13 @@ public class Game implements Runnable {
 
         // start drawing
 
-        this.g.drawImage(background, 0, 0, 1600, 900, null);
+        this.g.drawImage(background, 0, -900 + counter, 1600, 900, null);
+        this.g.drawImage(background, 0, 0 + counter, 1600, 900, null);
+        if (counter >= 900){
+            counter = 0;
+        }else{
+            counter ++;
+        }
         this.monster.render(this.g);
         this.c.render(this.g);
 
