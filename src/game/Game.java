@@ -14,6 +14,7 @@ import java.util.LinkedList;
 
 import static gfx.Assets.background;
 import static gfx.Assets.enemy;
+import static gfx.Assets.menuPic;
 
 /**
  * za da si naprawim nishka na koqto da ni wurvi igrata
@@ -43,7 +44,7 @@ public class Game implements Runnable {
     private Player monster;
     private Controller c;
     private Enemy enemy;
-    private Menu menu;
+    private GameMenu menu;
 
     public LinkedList<EntityA> ea;
     public LinkedList<EntityB> eb;
@@ -75,7 +76,7 @@ public class Game implements Runnable {
         this.ih = new InputHandler(this.display.getCanvas(), c, monster, this);
         ea = c.getEntityA();
         eb = c.getEntityB();
-        menu = new Menu();
+        menu = new GameMenu();
     }
 
     /**
@@ -132,24 +133,25 @@ public class Game implements Runnable {
         if (State == STATE.GAME) {
             this.monster.render(this.g);
             this.c.render(this.g);
+
+            g.setColor(Color.WHITE);
+            g.fillRect(4, 19, 302, 32);
+
+            g.setColor(Color.RED);
+            g.fillRect(5, 20, 300, 30);
+
+            g.setColor(Color.GREEN);
+            g.fillRect(5, 20, health, 30);
+
+            g.setColor(Color.black);
+            Font myFont = new Font("Arial", Font.BOLD, 30);
+            g.setFont(myFont);
+            g.drawString(Integer.toString(health / 3), health / 2 - 12, 47);
+
         } else if (State == STATE.MENU) {
-            this.menu.
+            this.g.drawImage(menuPic, 0, 0, 1600, 900, null);
+            this.menu.render(this.g);
         }
-
-        g.setColor(Color.WHITE);
-        g.fillRect(4, 19, 302, 32);
-
-        g.setColor(Color.RED);
-        g.fillRect(5, 20, 300, 30);
-
-        g.setColor(Color.GREEN);
-        g.fillRect(5, 20, health, 30);
-
-        g.setColor(Color.black);
-        Font myFont = new Font("Arial", Font.BOLD, 30);
-        g.setFont(myFont);
-        g.drawString(Integer.toString(health / 3), health / 2 - 12, 47);
-
         // end drawing
 
         // kazvame na nashiq canvas da vizualizira informaciqta
