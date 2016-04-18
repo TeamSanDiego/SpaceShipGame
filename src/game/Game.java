@@ -7,6 +7,7 @@ import gfx.ImageLoader;
 import gfx.SpriteSheet;
 
 import java.awt.*;
+import java.awt.Menu;
 import java.awt.image.BufferStrategy;
 import java.awt.image.ImageConsumer;
 import java.util.LinkedList;
@@ -42,12 +43,18 @@ public class Game implements Runnable {
     private Player monster;
     private Controller c;
     private Enemy enemy;
+    private Menu menu;
 
     public LinkedList<EntityA> ea;
     public LinkedList<EntityB> eb;
 
-    public static  int health = 100 * 3;
-    // end
+    public enum STATE{
+        MENU,
+        GAME
+    };
+    private STATE State = STATE.MENU;
+
+    public static int health = 100 * 3;
 
     public Game(String name, int width, int height) {
         this.name = name;
@@ -62,12 +69,13 @@ public class Game implements Runnable {
         Assets.init();
         this.display = new Display(this.name, this.width, this.height);
         c = new Controller(this);
-        monster = new Player(700, 700, 100, this, c);
+        monster = new Player(700, 700, this, c);
         enemy = new Enemy(500, 500, this, c);
         c.createEnemys(enemyCount);
-        this.ih = new InputHandler(this.display.getCanvas(), c, monster);
+        this.ih = new InputHandler(this.display.getCanvas(), c, monster, this);
         ea = c.getEntityA();
         eb = c.getEntityB();
+        menu = new Menu();
     }
 
     /**
@@ -76,8 +84,10 @@ public class Game implements Runnable {
      * render - printira sustoqnieto na igrata na wseki tick
      */
     public void tick() {
-        this.monster.tick();
-        this.c.tick();
+        if (State == STATE.GAME) {
+            this.monster.tick();
+            this.c.tick();
+        }
 
         if (enemyKilled >= enemyCount) {
             enemyCount += 2;
@@ -108,30 +118,23 @@ public class Game implements Runnable {
         this.g = this.bs.getDrawGraphics();
         // izchistwame freima predi da rendnem
         this.g.clearRect(0, 0, this.width, this.height);
-//        // zapulwame kwadrat
-//        this.g.setColor(Color.BLUE);
-//        this.g.fillRect(this.x, 200, 100, 50);
-//
-//        this.g.setColor(Color.green);
-//        this.g.drawRect(100, 100, 100, 100);
-//
-//        //this.g.setFont(Font.getFont("consolas")); - ne stawa- da go vidq kak
-//        this.g.drawString("Hello", 50, 50);
-//
-//        // izrisuvane na kartinki
-//        this.g.drawImage()
 
         // start drawing
 
         this.g.drawImage(background, 0, -900 + counter, 1600, 900, null);
         this.g.drawImage(background, 0, 0 + counter, 1600, 900, null);
-        if (counter >= 900){
+        if (counter >= 900) {
             counter = 0;
-        }else{
+        } else {
             counter ++;
         }
-        this.monster.render(this.g);
-        this.c.render(this.g);
+
+        if (State == STATE.GAME) {
+            this.monster.render(this.g);
+            this.c.render(this.g);
+        } else if (State == STATE.MENU) {
+
+        }
 
         g.setColor(Color.WHITE);
         g.fillRect(4, 19, 302, 32);
@@ -204,12 +207,6 @@ public class Game implements Runnable {
         this.stop();
     }
 
-    /**za da pusna nova nishka pisha metoda start
-     * za da spra nishkata - za da q wurna/sleq w
-     * purvonachalnata nishka, ot koqto sme q pusnali - pisha metoda stoop
-     * towa mi puska i spira igra
-     */
-
     /**
      * synchronized - sinhronizira dvete nishki pri puskane i spirane
      * toest ednata izchakwa drugata da se pusne i sled towa q izchakwa
@@ -237,13 +234,18 @@ public class Game implements Runnable {
     public int getEnemyKilled() {
         return enemyKilled;
     }
+
     public void setEnemyKilled(int enemyKilled) {
         this.enemyKilled = enemyKilled;
     }
+
     public int getEnemyCount() {
         return enemyCount;
     }
     public void setEnemyCount(int enemyCount) {
         this.enemyCount = enemyCount;
+    }
+    public STATE getState() {
+        return State;
     }
 }

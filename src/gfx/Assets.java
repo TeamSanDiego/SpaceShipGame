@@ -1,6 +1,7 @@
 package gfx;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Assets {
     public static BufferedImage background;
@@ -10,9 +11,13 @@ public class Assets {
 
 
     public static void init() {
-        background = ImageLoader.loadImage("/galaxies.jpg");
-        player = new SpriteSheet(ImageLoader.loadImage("/images.png"));
-        bullet = new SpriteSheet(ImageLoader.loadImage("/bullet.png"));
-        enemy = new SpriteSheet(ImageLoader.loadImage("/enemy.png"));
+        try {
+            background = ImageLoader.loadImage("/galaxies.jpg");
+            player = new SpriteSheet(ImageLoader.loadImage("/images.png"));
+            bullet = new SpriteSheet(ImageLoader.loadImage("/bullet.png"));
+            enemy = new SpriteSheet(ImageLoader.loadImage("/enemy.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

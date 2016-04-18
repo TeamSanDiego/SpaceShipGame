@@ -1,13 +1,14 @@
 package game.entities;
 
 import game.Game;
+import game.Launcher;
 import gfx.Assets;
 import gfx.SpriteSheet;
 
 import java.awt.*;
 
 public class Player extends GameObject implements EntityA{
-    private int widht, height, velocity, hitPoints;
+    private int widht, height, velocity;
     private SpriteSheet img;
 
     private Game game;
@@ -19,9 +20,8 @@ public class Player extends GameObject implements EntityA{
     public static boolean isMovingLeft, isMovingRight, isMovingUp, isMovingDown;
 
 
-    public Player(int x, int y, int hitPoints, Game game,Controller controller) {
+    public Player(int x, int y, Game game,Controller controller) {
         super(x, y);
-        this.hitPoints = hitPoints;
         this.velocity = 10;
         this.controller = controller;
 
