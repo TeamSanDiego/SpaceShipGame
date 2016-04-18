@@ -11,6 +11,7 @@ public class Player extends GameObject implements EntityA{
     private SpriteSheet img;
 
     private Game game;
+    Controller controller;
 
     private int column = 2;
     private int row = 2;
@@ -18,10 +19,11 @@ public class Player extends GameObject implements EntityA{
     public static boolean isMovingLeft, isMovingRight, isMovingUp, isMovingDown;
 
 
-    public Player(int x, int y, int hitPoints, Game game) {
+    public Player(int x, int y, int hitPoints, Game game,Controller controller) {
         super(x, y);
         this.hitPoints = hitPoints;
         this.velocity = 10;
+        this.controller = controller;
 
         this.game = game;
 
@@ -85,6 +87,16 @@ public class Player extends GameObject implements EntityA{
             this.y = 700;
         }
 
+        for (int i = 0; i < game.eb.size(); i++) {
+            EntityB tempEnt = game.eb.get(i);
+
+            if (Physics.Collision(this, tempEnt)){
+                controller.removeEntity(tempEnt);
+                game.health -= 10 * 3;
+                game.setEnemyKilled(game.getEnemyKilled() + 1);
+            }
+        }
+
 //        if (Physics.Collision(this, game.eb)) {
 //            game.stop();
 //        }
@@ -95,7 +107,6 @@ public class Player extends GameObject implements EntityA{
                 , this.x
                 , this.y
                 , null);
-
     }
 
     public int getX() {

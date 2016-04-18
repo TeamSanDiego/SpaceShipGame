@@ -26,10 +26,18 @@ public class Enemy extends GameObject implements EntityB{
 
     public void tick() {
         this.y += speed;
-        if (Physics.Collision(this, game.ea)) {
-            c.removeEntity(this);
-            game.setEnemyKilled(game.getEnemyKilled() + 1);
+
+        for (int i = 0; i < game.ea.size(); i++) {
+            EntityA tempEnt = game.ea.get(i);
+
+            if (Physics.Collision(this, tempEnt)) {
+                c.removeEntity(tempEnt);
+                c.removeEntity(this);
+                game.setEnemyKilled(game.getEnemyKilled() + 1);
+            }
         }
+
+
     }
 
     public void render(Graphics g) {

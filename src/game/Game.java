@@ -44,6 +44,8 @@ public class Game implements Runnable {
 
     public LinkedList<EntityA> ea;
     public LinkedList<EntityB> eb;
+
+    public static  int health = 100 * 3;
     // end
 
     public Game(String name, int width, int height) {
@@ -58,8 +60,8 @@ public class Game implements Runnable {
     public void init() {
         Assets.init();
         this.display = new Display(this.name, this.width, this.height);
-        monster = new Player(700, 700, 100, this);
         c = new Controller(this);
+        monster = new Player(700, 700, 100, this, c);
         enemy = new Enemy(500, 500, this, c);
         c.createEnemys(enemyCount);
         this.ih = new InputHandler(this.display.getCanvas(), c, monster);
@@ -123,6 +125,15 @@ public class Game implements Runnable {
         this.g.drawImage(background, 0, 0, 1600, 900, null);
         this.monster.render(this.g);
         this.c.render(this.g);
+
+        g.setColor(Color.WHITE);
+        g.fillRect(4, 19, 302, 32);
+
+        g.setColor(Color.RED);
+        g.fillRect(5, 20, 300, 30);
+
+        g.setColor(Color.GREEN);
+        g.fillRect(5, 20, health, 30);
 
         // end drawing
 
