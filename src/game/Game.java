@@ -53,9 +53,11 @@ public class Game implements Runnable {
 
     public enum STATE{
         MENU,
-        GAME
+        GAME,
+        END
     };
     public static STATE State = STATE.MENU;
+    public static STATE StateEnd = STATE.END;
 
     public static int health = 100 * 3;
 
@@ -91,6 +93,11 @@ public class Game implements Runnable {
         if (State == STATE.GAME) {
             this.monster.tick();
             this.c.tick();
+
+            if (health <= 0){
+                health = 100 * 3;
+                State = STATE.END;
+            }
         }
 
         if (enemyKilled >= enemyCount) {
@@ -151,7 +158,7 @@ public class Game implements Runnable {
             g.setFont(myFont);
             g.drawString(Integer.toString(health / 3), health / 2 - 12, 47);
 
-        } else if (State == STATE.MENU) {
+        } else if (State == STATE.MENU || State == STATE.END) {
             this.g.drawImage(menuPic, 0, 0, 1600, 900, null);
             this.menu.render(this.g);
         }
