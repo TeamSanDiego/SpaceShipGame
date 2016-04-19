@@ -37,6 +37,7 @@ public class Game implements Runnable {
     // Graphics - towa koeto gi izrisuva na nashiq canvas
     private Graphics g;
     private InputHandler ih;
+    private MouseInput mi;
 
     private int enemyCount = 10;
     private int enemyKilled = 0;
@@ -46,6 +47,7 @@ public class Game implements Runnable {
     private Enemy enemy;
     private GameMenu menu;
 
+
     public LinkedList<EntityA> ea;
     public LinkedList<EntityB> eb;
 
@@ -53,7 +55,7 @@ public class Game implements Runnable {
         MENU,
         GAME
     };
-    private STATE State = STATE.MENU;
+    public static STATE State = STATE.MENU;
 
     public static int health = 100 * 3;
 
@@ -73,7 +75,8 @@ public class Game implements Runnable {
         monster = new Player(700, 700, this, c);
         enemy = new Enemy(500, 500, this, c);
         c.createEnemys(enemyCount);
-        this.ih = new InputHandler(this.display.getCanvas(), c, monster, this);
+        this.ih = new InputHandler(this.display.getCanvas(), c, monster);
+        this.mi = new MouseInput(this.display.getCanvas());
         ea = c.getEntityA();
         eb = c.getEntityB();
         menu = new GameMenu();
@@ -246,8 +249,5 @@ public class Game implements Runnable {
     }
     public void setEnemyCount(int enemyCount) {
         this.enemyCount = enemyCount;
-    }
-    public STATE getState() {
-        return State;
     }
 }

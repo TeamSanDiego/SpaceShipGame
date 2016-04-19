@@ -13,13 +13,11 @@ public class InputHandler implements KeyListener {
 
     private Controller c;
     private Player p;
-    private Game game;
 
-    public InputHandler (Canvas canvas, Controller c, Player p, Game game) {
+    public InputHandler (Canvas canvas, Controller c, Player p) {
         canvas.addKeyListener(this);
         this.c = c;
         this.p = p;
-        this.game = game;
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -30,7 +28,7 @@ public class InputHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (game.getState() == Game.STATE.GAME) {
+        if (Game.State == Game.STATE.GAME) {
             if (code == KeyEvent.VK_RIGHT) {
                 Player.isMovingRight = true;
                 Player.isMovingLeft = false;
