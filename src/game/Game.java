@@ -158,6 +158,12 @@ public class Game implements Runnable {
             g.setFont(myFont);
             g.drawString(Integer.toString(health / 3), health / 2 - 12, 47);
 
+            g.setColor(Color.WHITE);
+            Font myFont2 = new Font("Arial", Font.BOLD, 50);
+            g.setFont(myFont2);
+            g.drawString("SCORE", 1400, 50);
+            g.drawString(Integer.toString(Player.score), 1400, 100);
+
         } else if (State == STATE.MENU || State == STATE.END) {
             this.g.drawImage(menuPic, 0, 0, 1600, 900, null);
             this.menu.render(this.g);

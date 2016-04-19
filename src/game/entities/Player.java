@@ -19,6 +19,8 @@ public class Player extends GameObject implements EntityA{
 
     public static boolean isMovingLeft, isMovingRight, isMovingUp, isMovingDown;
 
+    public static int score = 0;
+
 
     public Player(int x, int y, Game game,Controller controller) {
         super(x, y);
@@ -94,6 +96,7 @@ public class Player extends GameObject implements EntityA{
                 controller.removeEntity(tempEnt);
                 game.health -= 10 * 3;
                 game.setEnemyKilled(game.getEnemyKilled() + 1);
+                Player.score+= 100;
                 if (game.health <= 0){
                 }
             }
