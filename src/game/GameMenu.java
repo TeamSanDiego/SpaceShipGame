@@ -4,8 +4,7 @@ import java.awt.*;
 
 public class GameMenu {
     public Rectangle playButton = new Rectangle(700, 350, 200 ,100);
-    public Rectangle helpButton = new Rectangle(700, 500, 200 ,100);
-    public Rectangle quitButton = new Rectangle(700, 650, 200 ,100);
+    public Rectangle quitButton = new Rectangle(700, 500, 200 ,100);
 
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -19,8 +18,6 @@ public class GameMenu {
         g.setFont(fnt1);
         g.drawString("PLAY", playButton.x + 35, playButton.y + 70);
         g2d.draw(playButton);
-        g.drawString("HELP", helpButton.x + 35, helpButton.y + 70);
-        g2d.draw(helpButton);
         g.drawString("QUIT", quitButton.x + 40, quitButton.y + 70);
         g2d.draw(quitButton);
     }

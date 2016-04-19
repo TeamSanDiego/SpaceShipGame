@@ -95,7 +95,6 @@ public class Player extends GameObject implements EntityA{
                 game.health -= 10 * 3;
                 game.setEnemyKilled(game.getEnemyKilled() + 1);
                 if (game.health <= 0){
-                    game.stop();
                 }
             }
         }
