@@ -4,17 +4,13 @@ import display.Display;
 import game.entities.*;
 import gfx.Assets;
 import gfx.ImageLoader;
-import gfx.SpriteSheet;
 
 import java.awt.*;
-import java.awt.Menu;
 import java.awt.image.BufferStrategy;
-import java.awt.image.ImageConsumer;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
-import static gfx.Assets.background;
-import static gfx.Assets.enemy;
-import static gfx.Assets.menuPic;
+import static gfx.Assets.*;
 
 /**
  * za da si naprawim nishka na koqto da ni wurvi igrata
@@ -50,6 +46,8 @@ public class Game implements Runnable {
 
     public LinkedList<EntityA> ea;
     public LinkedList<EntityB> eb;
+    public static int life = 2;
+    BufferedImage lifeImage = ImageLoader.loadImage("/images.png").getSubimage(412,255,175,88);
 
     public enum STATE{
         MENU,
@@ -138,6 +136,12 @@ public class Game implements Runnable {
             counter = 0;
         } else {
             counter ++;
+        }
+        if (life >=1){
+            this.g.drawImage(lifeImage, 5, 830 , 47, 25, null);
+            if (life == 2) {
+                this.g.drawImage(lifeImage, 55, 830, 47, 25, null);
+            }
         }
 
         if (State == STATE.GAME) {

@@ -35,6 +35,9 @@ public class MouseInput implements MouseListener {
         if (mx >= 650 && mx <= (650 + 350)){
             if (my >= 350 && my <= (350 + 100)) {
                 Game.State = Game.STATE.GAME;
+                Game.life = 2;
+                Game.health = 300;
+                Player.score = 0;
             }
         }
     }

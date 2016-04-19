@@ -8,7 +8,7 @@ import gfx.SpriteSheet;
 import java.awt.*;
 
 public class Player extends GameObject implements EntityA{
-    private int widht, height, velocity;
+    private int width, height, velocity;
     private SpriteSheet img;
 
     private Game game;
@@ -29,7 +29,7 @@ public class Player extends GameObject implements EntityA{
 
         this.game = game;
 
-        this.widht = 200;
+        this.width = 200;
         this.height = 200;
         this.img = Assets.player;
     }
@@ -97,14 +97,16 @@ public class Player extends GameObject implements EntityA{
                 game.health -= 10 * 3;
                 game.setEnemyKilled(game.getEnemyKilled() + 1);
                 Player.score+= 100;
-                if (game.health <= 0){
+                if (game.health <= 0 && Game.life >= 1){
+                    Game.life--;
+                    game.health = 300;
                 }
             }
         }
     }
 
     public void render(Graphics g) {
-        g.drawImage(this.img.crop(this.column * this.widht, this.row * this.height, this.widht, this.height)
+        g.drawImage(this.img.crop(this.column * this.width, this.row * this.height, this.width, this.height)
                 , this.x
                 , this.y
                 , null);

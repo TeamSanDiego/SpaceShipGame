@@ -26,7 +26,7 @@ public class GameMenu {
         g.drawString("QUIT", quitButton.x + 40, quitButton.y + 70);
         g2d.draw(quitButton);
 
-        } else if (Game.State == Game.STATE.END){
+        } else if (Game.State == Game.STATE.END && Game.life == 0){
 
             Font fnt0 = new Font("arial", Font.BOLD, 100);
             g.setFont(fnt0);
