@@ -4,17 +4,13 @@ import display.Display;
 import game.entities.*;
 import gfx.Assets;
 import gfx.ImageLoader;
-import gfx.SpriteSheet;
 
 import java.awt.*;
-import java.awt.Menu;
 import java.awt.image.BufferStrategy;
-import java.awt.image.ImageConsumer;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
-import static gfx.Assets.background;
-import static gfx.Assets.enemy;
-import static gfx.Assets.menuPic;
+import static gfx.Assets.*;
 
 /**
  * za da si naprawim nishka na koqto da ni wurvi igrata
@@ -25,28 +21,28 @@ public class Game implements Runnable {
     private String name;
     private int width;
     private int height;
-    private int counter = 0;
 
     private Thread thread;
     private boolean isRunning;
-
-    private Display display;
     // BufferStrategy - nachina po koito nie kontrolilrame vizualiziraneto na obektite
     // na nashiq canvas
-    private BufferStrategy bs;
     // Graphics - towa koeto gi izrisuva na nashiq canvas
+    private int incrementBackground = 0;
+    private Display display;
+    private BufferStrategy bs;
     private Graphics g;
+    private GameMenu menu;
     private InputHandler ih;
     private MouseInput mi;
 
     private int enemyCount = 10;
     private int enemyKilled = 0;
-    // testing
-    private Player monster;
+
+    private Player player;
+    public static int life = 2;
+    public static int health = 100 * 3;
     private Controller c;
     private Enemy enemy;
-    private GameMenu menu;
-
 
     public LinkedList<EntityA> ea;
     public LinkedList<EntityB> eb;
@@ -55,11 +51,9 @@ public class Game implements Runnable {
         MENU,
         GAME,
         END
-    };
+        };
     public static STATE State = STATE.MENU;
     public static STATE StateEnd = STATE.END;
-
-    public static int health = 100 * 3;
 
     public Game(String name, int width, int height) {
         this.name = name;
@@ -67,17 +61,14 @@ public class Game implements Runnable {
         this.height = height;
     }
 
-    /**
-     * metod v koito si inicializiram
-     */
     public void init() {
         Assets.init();
         this.display = new Display(this.name, this.width, this.height);
         c = new Controller(this);
-        monster = new Player(700, 700, this, c);
+        player = new Player(700, 700, this, c);
         enemy = new Enemy(500, 500, this, c);
         c.createEnemys(enemyCount);
-        this.ih = new InputHandler(this.display.getCanvas(), c, monster);
+        this.ih = new InputHandler(this.display.getCanvas(), c, player);
         this.mi = new MouseInput(this.display.getCanvas());
         ea = c.getEntityA();
         eb = c.getEntityB();
@@ -91,11 +82,9 @@ public class Game implements Runnable {
      */
     public void tick() {
         if (State == STATE.GAME) {
-            this.monster.tick();
+            this.player.tick();
             this.c.tick();
-
             if (health <= 0){
-                health = 100 * 3;
                 State = STATE.END;
             }
         }
@@ -132,16 +121,23 @@ public class Game implements Runnable {
 
         // start drawing
 
-        this.g.drawImage(background, 0, -900 + counter, 1600, 900, null);
-        this.g.drawImage(background, 0, 0 + counter, 1600, 900, null);
-        if (counter >= 900) {
-            counter = 0;
+        this.g.drawImage(background, 0, -900 + incrementBackground, 1600, 900, null);
+        this.g.drawImage(background, 0, 0 + incrementBackground, 1600, 900, null);
+        if (incrementBackground >= 900) {
+            incrementBackground = 0;
         } else {
-            counter ++;
+            incrementBackground++;
+        }
+
+        if (life >= 1){
+            this.g.drawImage(lifeImage, 5, 830 , 47, 25, null);
+            if (life == 2) {
+                this.g.drawImage(lifeImage, 55, 830, 47, 25, null);
+            }
         }
 
         if (State == STATE.GAME) {
-            this.monster.render(this.g);
+            this.player.render(this.g);
             this.c.render(this.g);
 
             g.setColor(Color.WHITE);
@@ -157,6 +153,12 @@ public class Game implements Runnable {
             Font myFont = new Font("Arial", Font.BOLD, 30);
             g.setFont(myFont);
             g.drawString(Integer.toString(health / 3), health / 2 - 12, 47);
+
+            g.setColor(Color.WHITE);
+            Font myFont2 = new Font("Arial", Font.BOLD, 50);
+            g.setFont(myFont2);
+            g.drawString("SCORE", 1400, 50);
+            g.drawString(Integer.toString(Player.score), 1400, 100);
 
         } else if (State == STATE.MENU || State == STATE.END) {
             this.g.drawImage(menuPic, 0, 0, 1600, 900, null);

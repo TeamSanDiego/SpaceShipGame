@@ -5,7 +5,7 @@ import java.awt.*;
 public class GameMenu {
     public Rectangle playButton = new Rectangle(700, 350, 200 ,100);
     public Rectangle quitButton = new Rectangle(700, 500, 200 ,100);
-    public Rectangle tryAgainButton = new Rectangle(650, 350, 350, 100);
+    public Rectangle tryAgainButton = new Rectangle(625, 650, 350, 100);
 
 
 
@@ -37,6 +37,8 @@ public class GameMenu {
             g.setFont(fnt1);
             g.drawString("TRY AGAIN", tryAgainButton.x + 35, tryAgainButton.y + 70);
             g2d.draw(tryAgainButton);
+            g.drawString("QUIT", quitButton.x + 40, quitButton.y + 70);
+            g2d.draw(quitButton);
         }
     }
 }

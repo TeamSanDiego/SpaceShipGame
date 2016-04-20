@@ -32,9 +32,12 @@ public class MouseInput implements MouseListener {
             //public Rectangle tryAgainButton = new Rectangle(650, 350, 350, 100);
         }
         //Try again button
-        if (mx >= 650 && mx <= (650 + 350)){
-            if (my >= 350 && my <= (350 + 100)) {
+        if (mx >= 625 && mx <= (625 + 350)){
+            if (my >= 650 && my <= (650 + 100)) {
                 Game.State = Game.STATE.GAME;
+                Game.life = 2;
+                Game.health = 300;
+                Player.score = 0;
             }
         }
     }
