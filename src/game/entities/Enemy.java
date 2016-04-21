@@ -7,18 +7,18 @@ import gfx.SpriteSheet;
 import java.awt.*;
 import java.util.Random;
 
-public class Enemy extends GameObject implements EntityB{
+public class Enemy implements EntityB{
     private SpriteSheet img;
+    private int x, y;
     private Game game;
     private Controller c;
-
-    private Rectangle boundingBox;
-
     Random rnd = new Random();
+
     private int speed = rnd.nextInt(4) + 2;
 
     public Enemy(int x, int y, Game game, Controller c) {
-        super(x, y);
+        this.x = x;
+        this.y = y;
         this.game = game;
         this.c = c;
         this.img = Assets.enemy;
@@ -34,7 +34,7 @@ public class Enemy extends GameObject implements EntityB{
                 c.removeEntity(tempEnt);
                 c.removeEntity(this);
                 game.setEnemyKilled(game.getEnemyKilled() + 1);
-                Player.score += 100;
+                Player.score += 10;
             }
         }
 
@@ -65,6 +65,6 @@ public class Enemy extends GameObject implements EntityB{
         this.speed = speed;
     }
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 100, 100);
+        return new Rectangle(x, y, 100, 75);
     }
 }

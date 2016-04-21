@@ -6,24 +6,21 @@ import gfx.Assets;
 import gfx.SpriteSheet;
 
 import java.awt.*;
+import java.io.*;
 
-public class Player extends GameObject implements EntityA{
-    private int width, height, velocity;
+public class Player implements EntityA{
+    private int x, y, width, height, velocity;
+    public static int score = 0;
     private SpriteSheet img;
-
     private Game game;
     Controller controller;
-
     private int column = 2;
     private int row = 2;
-
     public static boolean isMovingLeft, isMovingRight, isMovingUp, isMovingDown;
 
-    public static int score = 0;
-
-
-    public Player(int x, int y, Game game,Controller controller) {
-        super(x, y);
+    public Player(int x, int y, Game game, Controller controller) {
+        this.x = x;
+        this.y = y;
         this.velocity = 10;
         this.controller = controller;
 
@@ -96,9 +93,9 @@ public class Player extends GameObject implements EntityA{
                 controller.removeEntity(tempEnt);
                 game.setEnemyKilled(game.getEnemyKilled() + 1);
                 game.health -= 10 * 3;
-                Player.score += 100;
+                Player.score += 5;
                 if (game.health <= 0 && game.life >= 1){
-                    Game.life--;
+                    game.life--;
                     game.health = 300;
                 }
             }
@@ -121,6 +118,6 @@ public class Player extends GameObject implements EntityA{
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 200, 200);
+        return new Rectangle(x + 10 , y + 30, 170, 100);
     }
 }

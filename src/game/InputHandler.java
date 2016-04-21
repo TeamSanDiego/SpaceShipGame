@@ -20,11 +20,6 @@ public class InputHandler implements KeyListener {
         this.p = p;
     }
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
@@ -64,5 +59,9 @@ public class InputHandler implements KeyListener {
             Player.isMovingUp = false;
             Player.isMovingDown = false;
         }
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
+
     }
 }

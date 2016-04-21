@@ -29,10 +29,9 @@ public class MouseInput implements MouseListener {
             if (my >= 500 && my <= (500 + 100)) {
                 System.exit(1);
             }
-            //public Rectangle tryAgainButton = new Rectangle(650, 350, 350, 100);
         }
         //Try again button
-        if (mx >= 625 && mx <= (625 + 350)){
+        if (mx >= 625 && mx <= (625 + 350)) {
             if (my >= 650 && my <= (650 + 100)) {
                 Game.State = Game.STATE.GAME;
                 Game.life = 2;
@@ -41,15 +40,19 @@ public class MouseInput implements MouseListener {
             }
         }
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
     }
+
     @Override
     public void mouseReleased(MouseEvent e) {
     }
+
     @Override
     public void mouseEntered(MouseEvent e) {
     }
+
     @Override
     public void mouseExited(MouseEvent e) {
     }
