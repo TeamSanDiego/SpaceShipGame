@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-// zarejda mi kartinkata
 public class ImageLoader {
     public static BufferedImage loadImage(String path) {
         try {
